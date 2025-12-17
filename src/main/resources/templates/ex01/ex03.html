@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}"
+>
+  <div layout:fragment="content">
+    <h1>Ex03 page</h1>
+    <ul>
+      [[${strList}]]
+      <li th:each="str : ${strList}" th:text="${str}"></li>
+    </ul>
+
+    <p>
+      [[${map}]]
+      <br />
+      <span th:text="${map.one}"></span>
+      <span th:text="${map.two}"></span>
+      <span th:text="${map.three}"></span>
+      <span th:text="${map.four}"></span>
+      <br />
+      <span th:text="${map}"></span>
+    </p>
+
+    <!-- key,value 순으로 찍기 -->
+    <div th:each="map : ${map}">
+      <span th:text="${map.key}"></span>
+      <span th:text="${map.value} + '원'"></span>
+    </div>
+
+    <p>
+      [[${testList}]]
+      <br />
+      <span th:text="${testList}"></span>
+    </p>
+
+    <p>
+      <span th:text="${testList[0].name}"></span>
+      <span th:text="${testList[0].age}"></span>
+      <br />
+
+      <span th:each="test : ${testList}" th:text="${test}"></span>
+    </p>
+
+    <script th:inline="javascript">
+      const list = [[${strList}]];
+      console.log(list);
+    </script>
+  </div>
+</html>

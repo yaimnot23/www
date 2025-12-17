@@ -1,10 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}"
+>
+  <div layout:fragment="content">
+    <h1>Hello SpringBoot World</h1>
+    <!--/* ${msg} : jsp EL 표현식 덕분에 사용했던 기능 */-->
+    <!--/* [[inline 방식]] => 컨트롤러에서 받은 데이터를 표시*/-->
+    <!--/* th: 태그 내부에서는 ${} 사용 */-->
+    <h1 th:text="${msg}">원래 있던 데이터</h1>
+    <h1>[[${msg}]] 원래 있던 데이터</h1>
+
+    <!--/* []는 inline 방식, th:text는 태그 내부 방식 */-->
+
+    <h3>[[${list}]]</h3>
+    <hr />
+    <ul>
+      <li th:each="str : ${list}">[[${str}]]</li>
+    </ul>
+    <hr />
+    <ul>
+      <li th:each="str : ${list}" th:text="${str}"></li>
+    </ul>
+
+    <hr />
+    <ul>
+      <li
+        th:each="str, status : ${list}"
+        th:text="${status.index + 1} + ' : ' + ${str}"
+      ></li>
+    </ul>
+
+    <hr />
+
+    <ul>
+      <li th:each="str,status: ${list}">
+        <span th:if="${status.odd}">ODD --- [[${str}]]</span>
+        <span th:unless="${status.odd}">EVEN --- [[${str}]]</span>
+      </li>
+    </ul>
+
+    <hr />
+
+    <ul>
+      <li th:each="str,status: ${list}">
+        <span th:text="${status.odd} ? 'ODD --- '+${str}"></span>
+      </li>
+    </ul>
+
+    <hr />
+    <hr />
+
+    <ul>
+      <li th:each="str,status: ${list}">
+        <span
+          th:text="${status.odd} ? 'ODD --- '+${str} : 'EVEN --- '+${str}"
+        ></span>
+      </li>
+    </ul>
+
+    <hr />
+
+    <ul>
+      <li th:each="str,status: ${list}">
+        <th:block th:switch="${status.index % 3}">
+          <span th:case="0">0</span>
+          <span th:case="1">1</span>
+          <span th:case="2">2</span>
+        </th:block>
+      </li>
+    </ul>
+
+    <hr />
+
+    <ul>
+      <li th:each="str, status:${list}">
+        <span th:text="${status.odd} ? 'odd- '+${str} : 'even- '+${str}"></span>
+      </li>
+    </ul>
+
+    <hr />
+
+    <ul>
+      <li th:each="str, status:${list}">
+        <th:block th:switch="${status.index % 3}">
+          <span th:case="0">0 - [[${str}]]</span>
+          <span th:case="1">1 - [[${str}]]</span>
+          <span th:case="2">2 - [[${str}]]</span>
+        </th:block>
+      </li>
+    </ul>
+
+    <hr />
+
+    <th:block th:with="num1=${10}, num2=${20}">
+      <p>[[${num1 + num2}]]</p>
+      <p>[[${num1 - num2}]]</p>
+      <p>[[${num1 * num2}]]</p>
+      <p>[[${num1 / num2}]]</p>
+      <p>[[${num1 % num2}]]</p>
+    </th:block>
+
+    <!--  링크로 연결 => controller mapping 경로로 이동-->
+    <!-- th없이 그냥 연결하면 일반(변수없이) 연결만 가능 -->
+    <a th:href="@{/ex01}">move to ex01</a>
+  </div>
 </html>

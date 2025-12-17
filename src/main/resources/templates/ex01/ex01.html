@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}"
+>
+  <div layout:fragment="content">
+    <h1>ex01</h1>
+    <a href="/">move to index</a> <br />
+    [[${list}]]
+    <ul>
+      <li th:each="str : ${list}" th:text="${str}"></li>
+    </ul>
+    <!-- controller / ex02 mapping -->
+    <a href="/ex02?name=hong&age=20">move to ex02 - href 사용</a>
+    <br />
+    <a th:href="@{/ex02(name='kwang', age=30)}">move to ex02 - th:href 사용</a>
+    <br />
+  </div>
+</html>
